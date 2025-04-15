@@ -13,48 +13,45 @@ El número debe actualizarse en pantalla.
 
 PD: Adjunto un archivo .zip que contiene una posible solución con errores.
 '''
+
 from kivy.app import App
-from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
 from kivy.uix.label import Label
 
-numero = 0
-Builder.load_string("""
-<PaginaUno>:
-    
-    BoxLayout:
-        Button:
-            text: 'Sumar 1'
-            on_press: root.ids.numero.value = self.value + 1
-            
-        Label:
-            id: numero
-            value: 2
- 
-        Button:
-            text: 'Restar 1'
-            on_press: root.ids.numero.text = 'Texto cambiado'
-            
-        Label:
-            id: valor
-            text = 'h'
-            halign: 'center'
-            valign: 'center'
-    
-    
 
-""")
 
-class PaginaUno(Screen):
-    pass
+
+
+class MyBoxLayout(BoxLayout):
+    
+    def __init__(self, **kwargs):
+        super(MyBoxLayout, self).__init__(**kwargs)
+        self.numeros = 0
+        self.orientation = 'vertical'
+        self.label = Label(text=str(0))
+        
+        self.button = Button(text='Sumar 1')
+        self.button.bind(on_press=self.add)
+        
+        self.button2 = Button(text='Restar 1')
+        self.button2.bind(on_press=self.sub)
+        
+        self.add_widget(self.label)
+        self.add_widget(self.button)
+        self.add_widget(self.button2)
+    
+    def add(self, instance):
+        self.numeros += 1
+        self.label.text = str(self.numeros)
+        
+    def sub(self, instance):
+        self.numeros -= 1
+        self.label.text = str(self.numeros)
 
 class TestApp(App):
     def build(self):
-        # Create the screen manager
-        sm = ScreenManager()
-        sm.add_widget(PaginaUno(name='uno'))
-        return sm
+        return MyBoxLayout()        
 
 if __name__ == '__main__':
     TestApp().run()
-    
