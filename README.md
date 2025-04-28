@@ -16,3 +16,5 @@ PD: Adjunto un archivo .zip que contiene una posible solución con errores.
 
 
 # El main con errores ya esta arreglado
+
+Funciona correctamente el contador usando BoxLayout, Label y Button, con inicialización en __init__ y binding a eventos; para mejorar, adáptalo a KivyMD (MDToolbar, MDLabel, MDRaisedButton), emplea nombres más descriptivos (contador, incrementar/decrementar).
